@@ -36,6 +36,7 @@ import org.camunda.bpm.model.dmn.instance.Output;
 import org.camunda.bpm.model.dmn.instance.OutputEntry;
 import org.camunda.bpm.model.dmn.instance.Rule;
 import org.camunda.bpm.model.dmn.instance.Text;
+import org.camunda.bpm.model.dmn.instance.Variable;
 
 /**
  * @author Thorben Lindhauer
@@ -65,8 +66,14 @@ public class XlsxWorksheetConverter {
     DmnModelInstance dmnModel = initializeEmptyDmnModel();
 
     Decision decision = generateElement(dmnModel, Decision.class, worksheetContext.getName());
-    decision.setName(spreadsheetAdapter.determineDecisionName(worksheetContext));
+    String name = spreadsheetAdapter.determineDecisionName(worksheetContext);
+    decision.setName(name);
     dmnModel.getDefinitions().addChildElement(decision);
+
+    Variable variable = generateElement(dmnModel, Variable.class);
+    variable.setName(name);
+    variable.setTypeRef("string");
+    decision.setVariable(variable);
 
     DecisionTable decisionTable = generateElement(dmnModel, DecisionTable.class, "decisionTable");
     decision.addChildElement(decisionTable);
