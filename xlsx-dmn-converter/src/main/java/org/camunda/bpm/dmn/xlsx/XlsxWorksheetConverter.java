@@ -28,12 +28,15 @@ import org.camunda.bpm.model.dmn.instance.DecisionTable;
 import org.camunda.bpm.model.dmn.instance.Definitions;
 import org.camunda.bpm.model.dmn.instance.Description;
 import org.camunda.bpm.model.dmn.instance.DmnElement;
+import org.camunda.bpm.model.dmn.instance.InformationRequirement;
 import org.camunda.bpm.model.dmn.instance.Input;
+import org.camunda.bpm.model.dmn.instance.InputData;
 import org.camunda.bpm.model.dmn.instance.InputEntry;
 import org.camunda.bpm.model.dmn.instance.InputExpression;
 import org.camunda.bpm.model.dmn.instance.NamedElement;
 import org.camunda.bpm.model.dmn.instance.Output;
 import org.camunda.bpm.model.dmn.instance.OutputEntry;
+import org.camunda.bpm.model.dmn.instance.RequiredInputReference;
 import org.camunda.bpm.model.dmn.instance.Rule;
 import org.camunda.bpm.model.dmn.instance.Text;
 import org.camunda.bpm.model.dmn.instance.Variable;
@@ -70,19 +73,24 @@ public class XlsxWorksheetConverter {
     decision.setName(name);
     dmnModel.getDefinitions().addChildElement(decision);
 
-    Variable variable = generateElement(dmnModel, Variable.class);
-    variable.setName(name);
-    variable.setTypeRef("string");
-    decision.setVariable(variable);
+    // ! Might not work for multiple outputs !
+    setVariableElement(dmnModel, decision, name);
 
     DecisionTable decisionTable = generateElement(dmnModel, DecisionTable.class, "decisionTable");
     decision.addChildElement(decisionTable);
 
     setHitPolicy(decisionTable);
-    convertInputsOutputs(dmnModel, decisionTable);
+    convertInputsOutputs(dmnModel, decisionTable, decision);
     convertRules(dmnModel, decisionTable, spreadsheetAdapter.determineRuleRows(worksheetContext));
 
     return dmnModel;
+  }
+
+  private void setVariableElement(DmnModelInstance dmnModel, Decision decision, String name) {
+    Variable variable = generateElement(dmnModel, Variable.class);
+    variable.setName(name);
+    variable.setTypeRef("string");
+    decision.setVariable(variable);
   }
 
   protected void setHitPolicy(DecisionTable decisionTable) {
@@ -92,7 +100,7 @@ public class XlsxWorksheetConverter {
     }
   }
 
-  protected void convertInputsOutputs(DmnModelInstance dmnModel, DecisionTable decisionTable) {
+  protected void convertInputsOutputs(DmnModelInstance dmnModel, DecisionTable decisionTable, Decision decision) {
 
     InputOutputColumns inputOutputColumns = spreadsheetAdapter.determineInputOutputs(worksheetContext);
 
@@ -119,6 +127,18 @@ public class XlsxWorksheetConverter {
       }
 
       dmnConversionContext.getIndexedDmnColumns().addInput(hvc.getColumn(), input);
+//
+//      InformationRequirement informationRequirement = dmnModel.newInstance(InformationRequirement.class, "");
+//      decision.getInformationRequirements().add(informationRequirement);
+//      InputData inputData = generateElement(dmnModel, InputData.class);
+//      inputData.setName(hvc.getLabel());
+//      dmnModel.getDefinitions().getDrgElements().add(inputData);
+//      informationRequirement.setRequiredInput(inputData);
+//      Variable variable = generateElement(dmnModel, Variable.class);
+//      inputData.setInformationItem(variable);
+//      variable.setName(hvc.getLabel());
+//      variable.setTypeRef(hvc.getTypeRef());
+
     }
 
     // outputs
