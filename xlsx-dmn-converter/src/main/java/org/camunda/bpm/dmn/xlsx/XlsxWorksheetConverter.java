@@ -128,6 +128,7 @@ public class XlsxWorksheetConverter {
 
       dmnConversionContext.getIndexedDmnColumns().addInput(hvc.getColumn(), input);
 //
+      // TODO add input columns as information requirements and input data
 //      InformationRequirement informationRequirement = dmnModel.newInstance(InformationRequirement.class, "");
 //      decision.getInformationRequirements().add(informationRequirement);
 //      InputData inputData = generateElement(dmnModel, InputData.class);
@@ -166,6 +167,7 @@ public class XlsxWorksheetConverter {
     for (SpreadsheetRow rule : rulesRows) {
       convertRule(dmnModel, decisionTable, rule);
     }
+    // TODO get possible values for each column and create a data type to constrain it
   }
 
   protected void convertRule(DmnModelInstance dmnModel, DecisionTable decisionTable, SpreadsheetRow ruleRow) {
