@@ -26,11 +26,11 @@ column, from left to right.
 - From IntelliJ (or using the command line), run the command line converter in advanced
   mode: <run config.png>. Run config is committed to this repo (see .run/). Command line parameters:
 
-  java -jar dmn-xlsx-cli-0.2.0.jar --advanced ./lhc.xlsx ./lhc.dmn
+  `java -jar dmn-xlsx-cli-0.2.0.jar --advanced ./lhc.xlsx ./lhc.dmn`
 
 - You may find that Excel converts some of the 'true' and 'false' strings into its stupid built-in
   boolean data type, 'TRUE' or 'FALSE', which will cause an exception like the following:
-  java.lang.RuntimeException: cannot parse cell content, unsupported format: cell [D7]
+  `java.lang.RuntimeException: cannot parse cell content, unsupported format: cell [D7]`
 - To resolve this, go to the cell indicated in the exception message and quote the value in the
   cell: replace `FALSE` with `'false` etc (note the single single-quote).
 <img alt="Quoting a boolean" src="docs/quoting-a-boolean.png" width="640"/>
@@ -44,9 +44,11 @@ column, from left to right.
   BC knows what values each column can take. For LHC, this is simple, each column can only take one
   of four values:
 <img alt="constrained data type" src="docs/constrained-data-type.png" width="640"/>
+
 - Then assign that data type to each of the relevant input
   columns:
 <img alt="constrained inputs" src="docs/constrained-inputs.png" width="640"/>
+
 - Once saved or validated, business central should tell you ways you can simplify the
   ruleset:
 <img alt="simplification suggestions" src="docs/simplification-suggestions.png" width="640"/>
