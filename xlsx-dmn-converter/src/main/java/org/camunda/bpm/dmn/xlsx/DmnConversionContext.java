@@ -39,7 +39,8 @@ public class DmnConversionContext {
         return contentHandler.convert(cell, worksheetContext);
       }
     }
-    throw new RuntimeException("cannot parse cell content, unsupported format");
+    throw new RuntimeException(
+        String.format("cannot parse cell content, unsupported format: cell [%s]", cell.getColumn() + cell.getRow()));
 
   }
 
