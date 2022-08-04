@@ -20,7 +20,8 @@ column, from left to right.
 - For each column, put either `input` or `output` into the cell in row 1 (again ignoring the seq
   numbers). Put `Expression` in the cell in row 2 for each, and `string` (or another DMN data type,
   possibly `number`) into the cell in row 5 (where the headings were).
-- It should look something like ![lhc.xlsx](docs/lhc.xlsx.png).
+- It should look something like this:
+![lhc.xlsx](docs/lhc.xlsx.png)
 
 - From IntelliJ (or using the command line), run the command line converter in advanced
   mode: <run config.png>. Run config is committed to this repo (see .run/). Command line parameters:
@@ -31,8 +32,8 @@ column, from left to right.
   boolean data type, 'TRUE' or 'FALSE', which will cause an exception like the following:
   java.lang.RuntimeException: cannot parse cell content, unsupported format: cell [D7]
 - To resolve this, go to the cell indicated in the exception message and quote the value in the
-  cell: replace `FALSE` with `'false` etc (note the single single-quote)
-  . ![Quoting a boolean](docs/quoting-a-boolean.png)
+  cell: replace `FALSE` with `'false` etc (note the single single-quote). 
+![Quoting a boolean](docs/quoting-a-boolean.png)
 
 - You can now import lhc.dmn into your jBPM workspace and, hopefully, it should show up as a
   decision table. You will need to add a DMN Input Data for each input column and link it to the
@@ -41,11 +42,14 @@ column, from left to right.
 
 - If you want decision analysis to happen, you'll have to add a Data Type with constraints so that
   BC knows what values each column can take. For LHC, this is simple, each column can only take one
-  of four values. ![constrained data type](docs/constrained-data-type.png)
+  of four values: 
+![constrained data type](docs/constrained-data-type.png)
 - Then assign that data type to each of the relevant input
-  columns: ![constrained inputs](docs/constrained-inputs.png)
+  columns: 
+![constrained inputs](docs/constrained-inputs.png)
 - Once saved or validated, business central should tell you ways you can simplify the
-  ruleset. ![simplification suggestions](docs/simplification-suggestions.png)
+  ruleset:
+![simplification suggestions](docs/simplification-suggestions.png)
 
 Upstream documentation:
 ===
