@@ -53,6 +53,8 @@ column, from left to right.
   ruleset:
 <img alt="simplification suggestions" src="docs/simplification-suggestions.png" width="640"/>
 
+- NOTE: You will want to change the `namespace` of the DMN asset once it's imported to BC - use the same format as our other DMN assets (a url like `https://kiegroup.org/dmn/_9F7BCAF8-8376-93C6-8862-0A1DDC130A16` - replace the UUID with a new one.
+
 Upstream documentation:
 ===
 This project has two components:
